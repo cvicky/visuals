@@ -1,0 +1,98 @@
+<!Doctype HTML>
+
+<html>
+<head>
+  <title> Vicky Chen Assignment 1> </title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+        <style>
+                body { background-color:#ffffff; color: black;}
+                h2 { font-family:Open Sans, sans-serif; font-weight:bold; text-align:center;}
+                p{font-family: Open Sans, sans-serif; text-transform:uppercase; text-align:center;}
+                }
+        </style>
+  <h2> Rippling Rainbow </h2>
+
+
+<!! THIS WAS THE index.html THAT WE ENDED UP WITH BY THE END OF CLASS
+    EXCEPT THAT I HAVE ADDED SOME COMMENTS TO THE FRAG SHADER CODE.>
+
+<script src=lib1.js></script>
+
+<body bgcolor=white>
+<center>
+<canvas id='canvas1' width='480' height='480'>
+</canvas>
+</center>
+</body>
+
+
+<!!=================================================================
+   VERTEX SHADER: runs once per triangle vertex.
+------------------------------------------------------------------->
+
+<script id='vs' type='other'>
+   attribute vec3 aPosition;
+   varying   vec3 vPosition;
+   void main() {
+      gl_Position = vec4(aPosition, 1.0);
+      vPosition = aPosition;
+   }
+</script>
+
+
+<!!=================================================================
+    FRAGMENT SHADER: runs once per pixel fragment.
+
+   Your assignment is to write your own interesting version of the
+   fragment shader program.  Try to have fun with it -- use "uTime"
+   to create animated patterns, and "uCursor" to make it responsive
+   to a user's mouse gestures.
+
+   DO NOT just hand in a variation of what I did in class!  I expect
+   you to create something original.  
+.------------------------------------------------------------------>
+
+<script id='fs' type='other'>
+   precision mediump float;
+   uniform float uTime;
+   uniform vec3  uCursor;
+   varying vec3  vPosition;
+   void main() {
+
+      // GET THE X,Y LOCATION FROM vPosition, THEN COMPUTE z AS THOUGH ON A SPHERE.
+
+      float x = vPosition.x;
+      float y = uCursor.y;
+      float z = sqrt(1. - x * uCursor.x - y * uCursor.y);
+
+
+      // CREATE A NEW COORDINATE SYSTEM THAT ROTATES IN TIME ABOUT THE Y AXIS.
+
+      float u = x* cos(uTime+1000.) - y * sin(uTime);
+      float v = y;
+      float w = x * sin(uTime) + y * cos(uTime+1000.);
+
+      // CREATE A COOL PROCEDURAL TEXTURE.
+
+      float c = w * cos(.25 * (u + 1. * cos(.8 * v)))
+                  * cos(5. * (v + .5 * cos(10. * u)));
+
+      // PUT THE RESULT INTO THE SYSTEM VARIABLE gl_FragColor.
+
+      gl_FragColor = vec4(z, .5 + 8. * u, .9 + 1. * w, 1.);
+
+   }
+</script>
+
+
+<script>
+start_gl("canvas1", getStringFromScript('vs'), getStringFromScript('fs'));
+</script>
+
+</head>
+
+<body> </br>    
+  <p> Go ahead, more your cursor around </p>
+</body>
+
+</html>
