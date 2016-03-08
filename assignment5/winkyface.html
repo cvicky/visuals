@@ -5,9 +5,18 @@
 <!! THIS IS AN EXAMPLE OF A HOMEWORK DOCUMENT THAT CONTAINS CANVAS BASED GRAPHICS.
     YOU SHOULD PROBABLY CHANGE THE TEXT TO SOMETHING THAT DESCRIBES YOUR OWN WORK.>
 
-<p>
-Assignment 5: Fun With HTML5 Canvas
-</p>
+<html>
+<head>
+  <title> Vicky Chen Assignment 3 </title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+        <style>
+                body { background-color:#ffffff; color: black;}
+                h2 { font-family:Open Sans, sans-serif; font-weight:bold; text-align:center;text-transform: uppercase;}
+                p{font-family: Open Sans, sans-serif; text-transform:uppercase; text-align:center;}
+                }
+        </style>
+  <h2> Assignment 5: Fun With HTML5 Canvas </h2>
+
 <center>
   <table>
     <tr>
@@ -35,10 +44,7 @@ Assignment 5: Fun With HTML5 Canvas
 </center>
 
 
-
 <script src=drawlib1.js></script>
-
-<!! BELOW IS THE CONTENT WE DEVELOPED IN TUESDAY'S CLASS.>
 
 <script>
    var canvas;
@@ -46,74 +52,40 @@ Assignment 5: Fun With HTML5 Canvas
    canvas = initCanvas('canvas1');
    canvas.update = function(g) {
 
-   
-
-   /*   g.strokeStyle = 'black';
-      g.strokeRect(1, 1, this.width-2, this.height-2);
-
-      var diameter = 100 * (1 + .1 * Math.sin(time * 10));
-     // g.fillStyle = this.cursor.z ? 'red' : 'rgb(0,0,128)';
-      g.fillRect(x - diameter / 2, y - diameter / 2, diameter, diameter);
-  */
-
     for (var row = 0; row < 11; row++) {
-     //g.fillStyle = "#"+((1<<24)*Math.random()|0).toString(16) ;
         for (var column = 0; column < 11; column++) {
-
             var a = column * 40;
             var b = row * 40;
-            //g.rect(a, b, 40, 40);
-
+            g.rect(a, b, 40, 40);
+            
+            //choose a random color
             var color = "#"+((1<<24)*Math.random()|0).toString(16) ;
-
+            
+            //draw the smiley face
             if( (row == 2|| row == 5 )  && (column ==2 || column==7) || (row==6 && (column > 2 && column <7) )  ) {
-              //if (color = "black") {
-              // g.fillStyle = "black" ;
-              g.fillStyle = color;
-              
-             // }
-              
-              
-           } 
-           
-           else{
-             // g.fillStyle = "#"+((1<<24)*Math.random()|0).toString(16) ;
+              g.fillStyle = color;              
+           } else{
              g.fillStyle = "black";
             }
-            //g.fillStyle = "#"+((1<<24)*Math.random()|0).toString(16) ;
             g.fillRect(a,b,40,40);
             //g.stroke();
         }
     }
    
-   /* var x = this.cursor.x,
-        y = this.cursor.y;
-
-      h.strokeStyle = 'black';
-      h.strokeRect(1, 1, this.width-2, this.height-2);
-
-      var diameter = 100 * (1 + .1 * Math.sin(time * 10));
-      h.fillStyle = this.cursor.z ? 'red' : 'rgb(0,0,128)';
-      h.fillRect(x - diameter / 2, y - diameter / 2, diameter, diameter);
-  */
   }
    canvas = initCanvas('canvas2');
    canvas.update = function(g) {
 
+   //function to convert degree to radian for circle
    function degToRad(degree){
     var factor = Math.PI/180;
     return degree*factor;
    }
 
-   
-    
-
-  
-     
       for (var row = 0; row < 3; row++) {
+      //color by row
       //g.fillStyle = "#"+((1<<24)*Math.random()|0).toString(16) ;
         for (var column = 0; column < 3; column++) {
-
             var a = column * 200;
             var b = row * 200;
             g.rect(a, b, 200, 200);
@@ -122,14 +94,15 @@ Assignment 5: Fun With HTML5 Canvas
             g.stroke();
         }
       }
-      
-      g.strokeStyle = 'white';
-   //g.fillStyle = "#"+((1<<24)*Math.random()|0).toString(16) ;
+    
+  //make the arc strokes white  
+   g.strokeStyle = 'white';
    g.fillStyle = 'rgba(0,0,255,0.5)';
 
    
    g.lineWidth = 5;
    g.beginPath();
+   //center at (200,200), radiaus = 160
    g.arc(200,200,160,degToRad(270), degToRad((time*60)-90));
    g.stroke();
 
@@ -150,8 +123,7 @@ Assignment 5: Fun With HTML5 Canvas
    g.arc(200,200,40,degToRad(270), degToRad((time*40)-90));
    g.stroke();
 
-   
-
    }
 </script>
 
+</html>
